@@ -23,6 +23,8 @@ passport.use(
     callbackURL: '/auth/google/callback'
   }, (accessToken, refreshToken, profile, done) => {
 
+    console.log(accessToken);
+
     // Check if google profile exist.
     if (profile.id) {
 
