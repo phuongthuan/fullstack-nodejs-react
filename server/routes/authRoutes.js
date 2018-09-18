@@ -5,22 +5,19 @@ module.exports = (app) => {
     scope: ['profile', 'email']
   }));
 
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  app.get('/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/surveys');
+    }
+  );
 
   app.get('/api/current_user', (req, res) => {
-    if (!req.user) {
-      res.send({message: 'You are not login!'})
-    } else {
-      res.send(req.user)
-    }
+    res.send(req.user);
   });
 
   app.get('/api/logout', (req, res) => {
     req.logout();
-    if (!req.user) {
-      res.send({message: 'You are logout!'})
-    } else {
-      res.send(req.user)
-    }
+    res.redirect('/');
   });
 };
